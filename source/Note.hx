@@ -86,10 +86,9 @@ class Note extends FlxSprite
 
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
-				case 'Hurt Note':
+				case 'EX Note':
 					ignoreNote = mustPress;
-					reloadNote('HURT');
-					noteSplashTexture = 'HURTnoteSplashes';
+					reloadNote('DEATH');
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
@@ -103,6 +102,12 @@ class Note extends FlxSprite
 					noAnimation = true;
 				case 'GF Sing':
 					gfNote = true;
+				case 'Bullet_Note':
+						texture = "BULLETNOTE_assets";
+						hitHealth += 0.01;
+						missHealth = 0.5;
+						ignoreNote = false;
+						noteSplashBrt = 100;	
 			}
 			noteType = value;
 		}

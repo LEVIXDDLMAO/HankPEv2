@@ -196,6 +196,12 @@ class PlayState extends MusicBeatState
 	var phillyCityLightsEventTween:FlxTween;
 	var trainSound:FlxSound;
 
+	var nevada_stage:BGSprite;
+	var nevada_tracer:BGSprite;
+	var nevada_yeetgf:BGSprite; //should i put it as a bgsprite??
+	var nevada_gfspeaker:FlxSprite;
+	var nevada_tiky:FlxSprite;
+
 	var limoKillingState:Int = 0;
 	var limo:BGSprite;
 	var limoMetalPole:BGSprite;
@@ -417,6 +423,46 @@ class PlayState extends MusicBeatState
 					stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 					stageCurtains.updateHitbox();
 					add(stageCurtains);
+				}
+			case 'nevada':
+
+				defaultCamZoom = 0.6;
+				
+				//probably not gonna add sanford or deimos because they cant be seen in game so it will probably be useless
+				//redoing the code to match the .lua file from the psych engine port
+				//dude wtf the character jsons are ignoring the fucking new positions wtf 
+				if(ClientPrefs.songbackgrounds){
+					var nevada_city:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_city', -600, -100);
+					nevada_city.scale.set(nevada_city.scale.x + 0.6, nevada_city.scale.y + 0.2);
+					add(nevada_city);
+
+					//idk why did i add this bc sanford neither deimos cant show up in the camera cuz it doesnt want to work properly lol
+					var nevada_hill:BGSprite = new BGSprite('modbackgrounds/accelerant/nevada_hill', -200, 100);
+					nevada_hill.scale.set(nevada_hill.scale.x + 0.8, nevada_hill.scale.y + 0.6);
+					add(nevada_hill);
+	
+					nevada_tiky = new FlxSprite(340, -50);
+					nevada_tiky.frames = Paths.getSparrowAtlas('modbackgrounds/accelerant/tikyfall');
+					nevada_tiky.animation.addByPrefix('skidaddle', 'fall', 24, true);
+
+					nevada_stage = new BGSprite('modbackgrounds/accelerant/nevada_stage', -400, -220);
+					nevada_stage.scale.set(nevada_stage.scale.x + 0.6, nevada_stage.scale.y + 0.8);
+					add(nevada_stage);
+
+					nevada_gfspeaker = new FlxSprite(185, 460);
+					nevada_gfspeaker.frames = Paths.getSparrowAtlas('modbackgrounds/accelerant/speakers');
+					nevada_gfspeaker.animation.addByPrefix('idle', 'GF Dancing Beat', 24, true);
+					nevada_gfspeaker.scrollFactor.set(1, 1);
+
+					GameOverSubstate.deathSoundName = 'bfded';
+				    GameOverSubstate.loopSoundName = 'tikyOver';
+				    GameOverSubstate.endSoundName = 'tikydedEnd';
+
+					nevada_yeetgf = new BGSprite('modbackgrounds/accelerant/cya', 220, 220);
+					nevada_yeetgf.scale.set(nevada_yeetgf.scale.x + 0.5, nevada_yeetgf.scale.y + 0.5);
+	
+					nevada_tracer = new BGSprite('modbackgrounds/accelerant/tracer', 2000, 640);
+					add(nevada_tracer);
 				}
 
 			case 'spooky': //Week 2
@@ -1139,6 +1185,7 @@ class PlayState extends MusicBeatState
 		CoolUtil.precacheSound('missnote1');
 		CoolUtil.precacheSound('missnote2');
 		CoolUtil.precacheSound('missnote3');
+		CoolUtil.precacheSound('shoot');
 
 		#if desktop
 		// Updating Discord Rich Presence.
@@ -3772,10 +3819,11 @@ class PlayState extends MusicBeatState
 				}
 
 				switch(note.noteType) {
-					case 'Hurt Note': //Hurt note
+					case 'EX Note': //Hurt note
 						if(boyfriend.animation.getByName('hurt') != null) {
 							boyfriend.playAnim('hurt', true);
 							boyfriend.specialAnim = true;
+							health -= 100;
 						}
 				}
 				
@@ -3825,11 +3873,12 @@ class PlayState extends MusicBeatState
 						boyfriend.holdTimer = 0;
 					}
 				//}
-				if(note.noteType == 'Hey!') {
-					if(boyfriend.animOffsets.exists('hey')) {
-						boyfriend.playAnim('hey', true);
+				if(note.noteType == 'Bullet_Note'){
+					if(boyfriend.animOffsets.exists('dodge')) {
+						boyfriend.playAnim('dodge', true);
 						boyfriend.specialAnim = true;
 						boyfriend.heyTimer = 0.6;
+						FlxG.sound.play(Paths.sound('shoot'));
 					}
 	
 					if(gf.animOffsets.exists('cheer')) {
