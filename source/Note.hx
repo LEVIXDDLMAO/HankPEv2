@@ -105,9 +105,15 @@ class Note extends FlxSprite
 				case 'Bullet_Note':
 						texture = "BULLETNOTE_assets";
 						hitHealth += 0.01;
-						missHealth = 0.5;
+						missHealth = 50;
 						ignoreNote = false;
-						noteSplashBrt = 100;	
+						noteSplashBrt = 100;
+                case 'Hell Note':
+							texture = "placeholderEX";
+							hitHealth += 0.01;
+							missHealth = 50;
+							ignoreNote = false;
+							noteSplashBrt = 100;	
 			}
 			noteType = value;
 		}

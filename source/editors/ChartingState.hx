@@ -59,7 +59,8 @@ class ChartingState extends MusicBeatState
 	[
 		'',
 		'Bullet_Note',
-		'EX Note'
+		'EX Note',
+		'Hell Note'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();
