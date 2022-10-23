@@ -3826,6 +3826,13 @@ class PlayState extends MusicBeatState
 							health -= 100;
 						}
 				}
+			case 'Hell Note': //Hurt note
+				if(boyfriend.animation.getByName('hurt') != null) {
+					boyfriend.playAnim('hurt', true);
+					boyfriend.specialAnim = true;
+					health -= 50;
+				        }
+				}
 				note.wasGoodHit = true;
 				if (!note.isSustainNote)
 				{
