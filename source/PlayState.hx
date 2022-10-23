@@ -3881,10 +3881,10 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('shoot'));
 					}
 	
-					if(gf.animOffsets.exists('cheer')) {
-						gf.playAnim('cheer', true);
-						gf.specialAnim = true;
-						gf.heyTimer = 0.6;
+					if(dad.animOffsets.exists('RIGHTshoot')) {
+						dad.playAnim('RIGHTshoot', true);
+					    dad.specialAnim = true;
+						dad.heyTimer = 0.6;
 					}
 				}
 			}
