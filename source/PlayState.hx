@@ -464,8 +464,12 @@ class PlayState extends MusicBeatState
 					nevada_tracer = new BGSprite('modbackgrounds/accelerant/tracer', 2000, 640);
 					add(nevada_tracer);
 				}
+			case 'exstage':
+				var bg:BGSprite = new BGSprite('bg/bg', -1350, -330);
+				bg.setGraphicSize(Std.int(bg.width * 1.65));
+				add(bg);
 
-			case 'spooky': //Week 2
+          case 'spooky': //Week 2
 				if(!ClientPrefs.lowQuality) {
 					halloweenBG = new BGSprite('halloween_bg', -200, -100, ['halloweem bg0', 'halloweem bg lightning strike']);
 				} else {
@@ -3819,7 +3823,7 @@ class PlayState extends MusicBeatState
 				}
 
 				switch(note.noteType) {
-					case 'EX Note': //Hurt note
+					case 'EX_Note': //Hurt note
 						if(boyfriend.animation.getByName('hurt') != null) {
 							boyfriend.playAnim('hurt', true);
 							boyfriend.specialAnim = true;

@@ -86,7 +86,7 @@ class Note extends FlxSprite
 
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
-				case 'EX Note':
+				case 'EX_Note':
 					ignoreNote = mustPress;
 					reloadNote('DEATH');
 					colorSwap.hue = 0;
